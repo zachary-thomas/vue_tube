@@ -4,7 +4,7 @@
     <!-- ------- -->
     <div>
       <b-navbar class="navBar" type="dark" variant="dark" fixed="top">
-        <img id="logo" alt="oh no.." src="./assets/logoG.png" width="25" height="25">
+        <img id="logo" alt="oh no.." src="./assets/newLogo.png" width="25" height="25">
         <b-navbar-nav>
           <b-nav-item @click="Home">Home</b-nav-item>
           <b-nav-item v-on:click="logout">Logout</b-nav-item>

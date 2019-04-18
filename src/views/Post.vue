@@ -4,12 +4,10 @@
     <!-- ------- -->
     <div>
       <b-navbar class="navBar" type="dark" variant="dark" fixed="top">
-        <img id="logo" alt="oh no.." src="./assets/logoG.png" width="25" height="25">
+        <img id="logo" alt="oh no.." src="./assets/newLogo.png" width="25" height="25">
         
         <b-navbar-nav>
           <b-nav-item @click="Home">Home</b-nav-item>
-          <b-nav-item @click="switchtoAccount">Account</b-nav-item>
-          <b-nav-item v-on:click="logout">Logout</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
     </div>
@@ -18,9 +16,11 @@
     <div id="postContent">
       <h4 class="sameLine">{{ postTitle }} </h4>
       <p class="sameLine" id="postedBy"> Posted by: {{ email }}</p>
-      
-      <p id="postContentCSS">{{ postContent }}</p>
-
+      <!-- <p id="postContentCSS">{{ postContent }}</p> -->
+       <b-embed type="iframe"
+        v-bind:src= "video"
+         > 
+     </b-embed>
       <!-- Table for comments -->
       <div>
         <br>
@@ -38,6 +38,10 @@
         <br>
               <b-form-textarea id="replybox" v-model="text" placeholder="Reply: " rows="2" max-rows="2" @keyup.enter.native="reply"></b-form-textarea>
       <b-button id="b-butt" @click="reply" >Reply</b-button>
+      <!-- <b-button id="download" @click="download" ><a v-bind:href="video" download></a></b-button> -->
+      <br></br>
+      <a id="downloadLink" v-bind:href="video" download>Download Video</a>
+      <p id="rightClick">(Right Click - Save Link As)</p>
       </br>
       <br>
       <b-button class="sameLine" id="centerButton" @click="removePost" v-if = "currentUser == email" variant="outline-danger">Delete Post</b-button>
@@ -55,6 +59,7 @@ import app from "../main.js";
 
 // Firebase
 var root = frbase.database().ref("Posts");
+var storageRef = frbase.storage().ref('Videos');
 
 export default {
   props: {
@@ -72,7 +77,8 @@ export default {
       commentRef: root.child(this.$props.ukey).child("Comments"),
       comments: [],
       createdAt: Date.now(),
-      currentUser: frbase.auth().currentUser.email
+      currentUser: frbase.auth().currentUser.email,
+      video: ""
     };
   },
   methods: {
@@ -117,7 +123,11 @@ export default {
         this.postTitle = items.title;
         this.postContent = items.content;
         this.email = items.user;
+        this.video = items.downloadURL;
       }
+
+      
+
     });
     this.commentRef.on("child_added", snapshot =>{
       this.comments.push(snapshot.val());
@@ -125,12 +135,22 @@ export default {
     root.on("child_changed", snapshot => {
       let items = snapshot.val();
     });
-  }
+  },
+  // download(){
+  // var xhr = new XMLHttpRequest();
+  // xhr.responseType = 'blob';
+  // xhr.onload = function(event) {
+  //   var blob = xhr.response;
+  // };
+  // xhr.open('GET', this.video);
+  // xhr.send();
+  // }
 };
 </script>
 
 
 <style>
+
 #centerButton{
   width: 40%;
 margin-left: 30%;
@@ -158,7 +178,17 @@ margin-right: 30%
 #userReply{
   color: rgb(146, 146, 155);
 }
-
+#downloadLink{
+    color: orangered;
+    margin-left: 45%;
+    margin-right: 30%;
+    text-align: center;
+}
+#rightClick{
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: center;
+}
 .sameLine{
   display:inline-block;
   margin-left: 10px;
@@ -173,11 +203,11 @@ margin-right: 30%
   padding: 0px;
   width: 100%;
   min-height: 100vh;
-  background: #c850c0;
-  background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
-  background: -o-linear-gradient(45deg, #4158d0, #c850c0);
-  background: -moz-linear-gradient(45deg, #4158d0, #c850c0);
-  background: linear-gradient(45deg, #4158d0, #c850c0);
+ background: #ff8800ef;
+  background: -webkit-linear-gradient(45deg, #ff8800ef, #850000);
+  background: -o-linear-gradient(45deg, #ff8800ef, #850000);
+  background: -moz-linear-gradient(45deg, #ff8800ef, #850000);
+  background: linear-gradient(45deg, #ff8800ef, #850000);
   display: flex;
   /* align-items: center; */
   justify-content: center;

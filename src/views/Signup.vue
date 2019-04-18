@@ -1,6 +1,6 @@
 <template>
   <div class="sign-up">
-    <img alt="oh no.." src="./assets/logoG.png">
+    <img alt="oh no.." src="./assets/newLogo.png">
     <p>Join the club!</p>
     <input type="text" placeholder="Email" v-model="email">
     <br>

@@ -1,6 +1,7 @@
 <template>
     <div class="login">
-        <img alt="oh no.." src="./assets/logoG.png">
+        <h1> Vue Tube </h1>
+        <img alt="oh no.." src="./assets/newLogo.png">
         <h3>Sign In</h3>
         <input type="text" placeholder="Username or Email" v-model = "email"><br>
         <input type="password" placeholder="Password" v-model = "password"><br>

@@ -1,4 +1,4 @@
-# Vue tube
+# geddit
 
 ## Project setup
 ```
